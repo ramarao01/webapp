@@ -1,0 +1,15 @@
+<!--<html>
+  <head>
+    
+    <title>success</title>
+    
+  </head>
+  <body>-->
+   {% extends "base.html" %}
+   {% block content %}
+    
+    <h1>Hi RAMARAO</h1>
+    
+    {% endblock %}
+<!--  </body>
+</html>-->

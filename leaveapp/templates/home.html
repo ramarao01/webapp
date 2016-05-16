@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Hai {{ name }}<h1/>
+<h1>Welcome to home page</h1>
+
+<h3>Profile:</h3>
+<table>
+{% for profile in profile %}
+<tr><td><strong>Name:</strong>{{ profile.FirstName }}<br></td>
+<td><strong>Surname:</strong>{{ profile.SurName }}<br></td>
+<td><strong>EmailId:</strong>{{ profile.EmailId }}<br></td>
+<td><strong>MobileNo:</strong>{{ profile.MobileNo }}<br></td></tr>
+
+{% endfor %}
+</table>
+{% endblock %}

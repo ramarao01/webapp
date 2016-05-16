@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<link rel="stylesheet" href="{{ url_for('.static', filename='css/datepicker.css') }}">
+
+        <link rel="stylesheet" href="{{ url_for('.static',filename='css/bootstrap.css' )}}">
+  </head>
+<body>
+
+
+
+
+<div class="container">
+<center>
+<h2>Registration Form</h2>
+
+
+<form action = "" method="post" name="register">
+  {{ form.hidden_tag() }}
+	{{ form.name.label }}<br>
+    {{ form.name }}
+	{{ form.gender.label }} {{ form.gender }}
+	<table>
+	<tr> 
+   	<td>First Name:</td>
+ 	<td><input type="text" name="firstname"  ></td>
+   </tr>
+   <tr>
+	<td>Last Name:</td>
+	<td><input type="text" name="lastname" ></td>
+   </tr>
+   <tr>
+	<td> EmailId</td>
+   	<td> <input type="email" name="emailid" ></td>
+   </tr>
+   <tr>
+	<td>Gender</td>
+   	<td>
+    <input type="radio" name="Gender" value="male">Male
+    <input type="radio" name="Gender" value="female">Female</td></tr>
+   <tr>
+	<td>EmployeeId:</td><td><input  type="text" maxlength="4" name="empid" required=""></td></tr>
+   <tr>
+	<td>
+	MobileNo:</td><td><input type="text" maxlength="10" name="phonenumber" required=""></td></tr>              
+   <tr align="center"><td colspan="2">
+	
+
+            <div class="hero-unit">
+
+                <input  type="text" placeholder="click to enter date of birth"  id="example1">
+
+            </div></td></tr>
+
+        
+
+        <!-- Load jQuery and bootstrap datepicker scripts -->
+
+        <script src="{{ url_for('.static', filename='js/jquery-1.9.1.min.js') }}"
+></script>
+
+        <script src="{{ url_for('.static', filename='js/bootstrap-datepicker.js') }}"
+src="js/bootstrap-datepicker.js"></script>
+
+        <script type="text/javascript">
+
+            // When the document is ready
+
+            $(document).ready(function () {
+
+                
+
+                $('#example1').datepicker({
+
+                    format: "dd/mm/yyyy"
+
+                });  
+
+            
+
+            });
+
+        </script>
+
+    <tr><td align="center" colspan="2"><input type="submit" value="Register"></td></tr>
+
+</table>
+</form>
+</div>
+</body>
+</html>
+

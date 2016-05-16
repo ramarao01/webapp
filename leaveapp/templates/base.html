@@ -1,0 +1,48 @@
+<html>
+ <head>
+  {% if title %}
+  <title>{{ title }} Page </title>
+  {% else %}
+  <title>Enter into Leave Management tool</title>
+  {% endif %}
+  
+  
+  
+  
+  
+<!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
+
+
+<link rel="stylesheet" href="{{ url_for('.static', filename='bootstrap.min.css')}}">
+<script src="{{ url_for('.static',filename='bootstrap.min.js') }}></script>
+<script src="{{ url_for('.static', filename='jquery.min.js') }}></script> 
+<body>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul>
+        {% for message in messages %}
+        <li>{{ message }} </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+  {% endwith %} 
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/home">Home</a></li>
+        <li><a href="/profile">Profile</a></li>
+        <li><a href="/leaveform">LeaveForm</a></li> 
+        <li><a href="/leavestatus">LeaveStatus</a></li>
+        <li><a href="/changepassword">ChangePassword</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/logout"><span class="glyphicon"></span> Logout</a></li>
+      </ul> 
+    </div>
+  </nav>
+  {% block content %}
+  {% endblock %}
+  </body>
+</html>

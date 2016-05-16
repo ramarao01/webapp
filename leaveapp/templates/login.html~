@@ -1,0 +1,12 @@
+
+  <form class="login-form" action="" method = 'post' >
+	{{ form1.hidden_tag() }}
+      <input type="text" placeholder="username" name="username" value={{ form1.username.data }}/>
+      <input type="password" placeholder="password" name="password" value={{ form1.username.data }}/>
+      <button>login</button>
+      <p>Not registered?<a href="/regleave">Register</a></p>
+	{% if error %}
+	<p class="error"><strong>Error:</strong>{{ error }}</p>
+	{% endif %}
+    </form>
+
