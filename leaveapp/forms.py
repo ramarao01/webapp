@@ -9,9 +9,11 @@ class RegistrationForm(Form):
     #emailid = StringField('emailid', validators=[DataRequired()])
     #gender = StringField('gender', validators=[DataRequired()])
     #empid = StringField('empid', validators=[DataRequired()])
-    name = StringField('Name Of Student',validators=[DataRequired('Please enter your name.')])
-    gender = BooleanField('Gender')
-    Gender = BooleanField('gender')
+    #Take form = RegistrationForm() and we can call this label as {{ form.name.label }} and   {{ form.name }} in html pages
+    
+
+    Gender = BooleanField('Gender')
+    
 class LoginForm(Form):
     username = StringField('username', validators=[DataRequired('Please enter username')])
     password = StringField('password', validators=[DataRequired('Please enter password')])
