@@ -1,8 +1,10 @@
 
   <form class="login-form" action="" method = 'post' >
+{% if form1 %}
 	{{ form1.hidden_tag() }}
-      <input type="text" placeholder="username" name="username" value={{ form1.username.data }} >
-      <input type="password" placeholder="password" name="password" value={{ form1.username.data }} >
+{% endif %}
+      <input type="text" placeholder="username" name="firstname" value={% if form1 %} {{ form1.firstname.data }} {% endif %} >
+      <input type="password" placeholder="password" name="password" value= {% if form1 %} {{ form1.password.data }}{% endif %}  >
       <button>login</button>
       <p>Not registered?<a href="/regleave">Register</a></p>
 	{% if error %}

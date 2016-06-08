@@ -17,3 +17,8 @@ lm.init_app(leaveapp)
 oid = OpenID(leaveapp, os.path.join(basedir, 'tmp'))
 
 from leaveapp import views,models
+
+
+
+from flask.ext.mail import Mail
+mail = Mail(leaveapp)

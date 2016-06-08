@@ -5,26 +5,28 @@
     <link rel="stylesheet" href="{{ url_for('.static',filename='css/bootstrap.css' )}}">
   </head>
 <body>
+  
   <div class="container">
       <div class="hero-unit">
+        {{ form.hidden_tag() }}
     <center>
     <h2>Registration Form</h2>
     <form action = "" method="post" name="register">
 	   <table>
 	   <tr> 
    	  <td>First Name:</td>
- 	    <td><input type="text" name="firstname"  ></td>
+ 	    <td><input type="text" name="firstname" value="" ></td>{{ error }}
     </tr>
     <tr>
 	   <td>Last Name:</td>
-	   <td><input type="text" name="lastname" ></td>
+	   <td><input type="text" name="lastname" ></td>{{ error }}
     </tr>
     <tr>
 	    <td> EmailId</td>
-   	  <td> <input type="email" name="emailid" ></td>
+   	  <td> <input type="email" name="emailid" ></td>{{ error }}
     </tr>
     <tr>
-	   <td>Gender</td>
+	   <td>Gender</td>{{ error }}
    	 <td>
      <input type="radio" name="Gender" value="male">Male
      <input type="radio" name="Gender" value="female">Female
@@ -32,17 +34,17 @@
     </tr>
     <tr>
 	   <td>EmployeeId:</td>
-     <td><input  type="text" maxlength="4" name="empid" required=""></td>
+     <td><input  type="text" maxlength="4" name="empid" required=""></td>{{ error }}
     </tr>
     <tr>
 	   <td>MobileNo:</td>
-     <td><input type="text" maxlength="10" name="phonenumber" required=""></td>
+     <td><input type="text" maxlength="10" name="phonenumber" required=""></td>{{ error }}
      </tr>              
    <tr>
    <td>Date of Birth:</td>
    <td>
     
-      <input  type="text" placeholder="click to enter date of birth"  id="example1">
+      <input  type="text" placeholder="click to enter date of birth"  id="example1">{{ error }}
    
     </td>
    </tr>
