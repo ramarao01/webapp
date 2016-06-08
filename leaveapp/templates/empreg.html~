@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+ <link rel="stylesheet" href="{{ url_for('.static', filename='bootstrap.min.css')}}">
+  <script src="{{ url_for('.static',filename='bootstrap.min.js') }}>"</script>
+  <script src="{{ url_for('.static', filename='jquery.min.js') }}>"</script> 
+   <link rel="stylesheet" href="{{ url_for('.static', filename='css/datepicker.css') }}">
+    <link rel="stylesheet" href="{{ url_for('.static',filename='css/bootstrap.css' )}}">
+
+<body>
+<div class="container">
+  <h2>ADD EMPLOYEE </h2>
+  <p>Add employee to use leave management app</p>
+  <form role="form">
+    <div class="form-group">
+      <label for="firstname">FIRST NAME</label>
+      <input type="text" class="form-control" id="firstname" placeholder="First Name">
+    </div>
+    <div class="form-group">
+      <label for="middlename">MIDDLE NAME</label>
+      <input type="text" class="form-control" id="middlename" placeholder="Middle Name">
+    </div>
+    <div class="form-group">
+      <label for="lastname">LAST NAME</label>
+      <input type="text" class="form-control" id="lastname" placeholder="Last Name">
+    </div>
+    <div class="form-group">
+    <label for="email">EMAIL</label>
+    <input type="email" class="form-control" id="email" placeholder="Email">
+  </div>
+    <div class="form-group">
+      <label for="pwd">Password:</label>
+      <input type="password" class="form-control" id="pwd" placeholder="Enter password">
+    </div>
+    
+<div class="form-group has-feedback">
+      <label for="dateofjoining">DATE OF JOINING:</label>
+      <input type="text" class="form-control" id="dateofjoining" placeholder="click to enter date of joining">
+          <i class="glyphicon glyphicon-user form-control-feedback"></i></div>
+
+
+      <button type="button" class="btn btn-success">ADD</button>
+    <button type="button" class="btn btn-danger">Cancel</button>
+    </div>
+    <script src="{{ url_for('.static', filename='js/jquery-1.9.1.min.js') }}"
+></script>
+  <script src="{{ url_for('.static', filename='js/bootstrap-datepicker.js') }}"
+src="js/bootstrap-datepicker.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function () 
+    {
+    	$('#dateofjoining').datepicker({format: "dd/mm/yyyy"});
+     });
+  </script>
+    </form>
+</div>
+</body>
+
+
+
+
+
+
+
+{% endblock %}
+~               

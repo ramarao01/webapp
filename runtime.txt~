@@ -1,0 +1,57 @@
+python-2.7.11<body class="login-page-container">
+        <div class="container">
+            <div class="row">
+                <div class="forms-authentication col-sm-12">
+                    <div class="logo-container col-sm-4">
+                        <div class="login-logo"></div>
+                        <p class="copyright-text">© Keka 2016</p>
+                    </div>
+                    <div class="loginform-container col-sm-8">
+
+                        <h3>demo copy 12</h3>
+                        <div class="form-container content-container">
+                            
+
+
+<form action="/Account/Login?ReturnUrl=%2F" method="post" novalidate="novalidate"><input name="__RequestVerificationToken" type="hidden" value="Rrt7HsSQUbsir-8udzQPiy-SzP8F5uCs7472ddYArZh0lEu91aM06t8lcEV-4g4s53Z0hZO7OXtzf3vipsu8SynKfD01">    <div class="form-group">
+        <input autofocus="autofocus" class="form-control" data-val="true" data-val-email="Please enter a valid email address." data-val-required="Enter your email address." id="UserName" name="UserName" placeholder="Email Id" type="text" value="">
+        <span class="field-validation-valid control-label" data-valmsg-for="UserName" data-valmsg-replace="true"></span>
+    </div>
+    <div class="form-group">
+        <input class="form-control" data-val="true" data-val-required="Enter your password." id="Password" name="Password" placeholder="Password" type="password">
+        <span class="field-validation-valid control-label" data-valmsg-for="Password" data-valmsg-replace="true"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" id="login" value="Login" class="login-button btn btn-default col-sm-12 clear-side-padding">
+    </div>
+    <div class="forgot-password">
+<a class="" href="/Account/ForgotPassword">Forgot password?</a>    </div>
+</form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <p class="copyright-content">Copyright © 2016 Keka Inc. | All Rights Reserved </p>
+        </footer>
+        <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.0.min.js"></script>
+
+        <script src="/bundles/jqueryval?v=liFQDLl2DYXeEfda_Lo9HxMCJUnZ2Adg-vEhq6ZMqpo1"></script>
+
+        
+
+        <!-- Script to append angular js route to return url -->
+        <script type="text/javascript">
+            $("#login").click(function (e) {
+                e.preventDefault();
+                var returnUrl = $(location).attr('hash');
+                var formAction = $("form").attr("action") + encodeURIComponent(returnUrl);
+                $("form").attr("action", formAction);
+                $("form").submit();
+            });
+        </script>
+    
+
+
+</body>
