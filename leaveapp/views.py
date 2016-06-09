@@ -1,6 +1,6 @@
 import os
 import re
-from flask import flash,session,request,render_template,redirect,url_for,g
+from flask import flash,session,request,render_template,redirect,url_for,g,jsonify
 from leaveapp import leaveapp,db,lm,oid
 from .forms import RegistrationForm,LoginForm,empreg
 from functools import wraps
@@ -26,9 +26,11 @@ def home():
 @leaveapp.route("/empreg",methods=['GET','POST'])
 
 def fempreg():
+    user = User.query.all()
+    print user
     orm = empreg()
     if request.method == 'GET':
-        return render_template('empreg.html',form=orm)
+        return render_template('empreg.html',form=orm,user=user)
     if request.method == 'POST':
         print orm.empfirstname
         me =User()
@@ -41,9 +43,19 @@ def fempreg():
         
         if  orm.empfirstname:
             return redirect('/leaveform')
-    return render_template('empreg.html',form=orm)
+    return render_template('empreg.html',form=orm,user=user)
 
 
+
+@leaveapp.route("/M")
+def m():
+    user = User.query.filter_by(
+            firstname='Ramarao').all()
+    print user
+
+    s= jsonify({'hai':'world'})
+    print s
+    return jsonify({'hai':'world'})
 
 
 @leaveapp.route("/login",methods=['GET','POST'])

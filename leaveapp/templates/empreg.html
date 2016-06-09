@@ -1,3 +1,5 @@
+
+
 {% extends "base.html" %}
 {% block content %}
  <link rel="stylesheet" href="{{ url_for('.static', filename='bootstrap.min.css')}}">
@@ -7,9 +9,22 @@
     <link rel="stylesheet" href="{{ url_for('.static',filename='css/bootstrap.css' )}}">
 
 
+
+
+<script>
+  $(function() {
+    var i= [user.firstname];
+    
+    $("#empmiddlename").autocomplete({source:i});
+  });
+</script>
+
 <div class="container">
   <h2>ADD EMPLOYEE </h2>
   <p>Add employee to use leave management app</p>
+
+
+
   <form role="form" action="" method='post'>
  
   {{ form.hidden_tag() }}
