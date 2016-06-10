@@ -28,7 +28,6 @@ class LoginForm(Form):
         user = User.query.filter_by(
             firstname=self.firstname.data).first()
   
-        print user.firstname
         if user.firstname is None:
             return False
         try:
