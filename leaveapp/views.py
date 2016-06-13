@@ -180,3 +180,6 @@ def Logout():
     return render_template("main.html",title='main')
 
 
+@leaveapp.route("/lo")
+def lo():
+    return render_template("lo.html")
