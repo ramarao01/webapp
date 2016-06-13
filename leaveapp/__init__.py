@@ -20,5 +20,12 @@ from leaveapp import views,models
 
 
 
-from flask.ext.mail import Mail
+
+
+from flask_mail import Mail
+
 mail = Mail(leaveapp)
+
+
+
+

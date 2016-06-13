@@ -1,8 +1,9 @@
 import os
 import re
+from flask_mail import Mail, Message
 from flask import flash,session,request,render_template,redirect,url_for,g,jsonify
 from leaveapp import leaveapp,db,lm,oid
-from .forms import RegistrationForm,LoginForm,empreg
+from .forms import RegistrationForm,LoginForm,empreg,leaveform
 from functools import wraps
 from .models import User,Post
 leaveapp.secret_key = os.urandom(24)
@@ -10,8 +11,39 @@ import sqlite3
 from sqlalchemy import and_,insert
 from datetime import datetime
 
+from flask_mail import Message
 
 
+leaveapp.config['MAIL_SERVER'] = 'smtp.gmail.com'
+leaveapp.config['MAIL_PORT'] = 465
+
+leaveapp.config['MAIL_USE_SSL'] = True,
+
+leaveapp.config['MAIL_USERNAME'] = 'kedarasettiramarao01@gmail.com'
+leaveapp.config['MAIL_PASSWORD'] = '9553491072'
+leaveapp.config['ADMINS'] = ['kedarasttiramarao01@gmail.com']
+
+mail = Mail(leaveapp)
+
+@leaveapp.route("/")
+def test():
+
+   msg = Message('Hello', sender = 'kedarasettiramarao@gmail.com', recipients = ['kedarasttiramarao01@gmail.com'])
+   msg.body = "Hello Flask message sent from Flask-Mail"
+   mail.send(msg)
+   return "Sent"
+
+ 
+
+ 
+
+ 
+
+
+
+
+
+    
 
 session={'username':None}
 
@@ -32,12 +64,12 @@ def fempreg():
     if request.method == 'GET':
         return render_template('empreg.html',form=orm,user=user)
     if request.method == 'POST':
+
+
         print orm.empfirstname
         me =User()
         me.firstname = orm.empfirstname.data
         me.lastname = orm.emplastname.data
-        for i in me:
-            print me
         db.session.add(me)
         db.session.commit()
         
@@ -71,7 +103,7 @@ def login():
     return render_template('login.html',form1=form1)
     
     
-@leaveapp.route('/')
+@leaveapp.route('/main')
 def main():
     return render_template('main.html')
 
@@ -103,18 +135,39 @@ def profile():
 
 
 
-@leaveapp.route("/leaveform",methods=['GET','POST'])
-def leaveform():
-       
+@leaveapp.route("/leaverequest",methods=['GET','POST'])
+def leaverequest():
+    form1 = leaveform()
+    if request.method == 'GET':
+        return render_template('leaverequest.html',form=form1)
+    if request.method == 'POST':
+        print form1.validate_on_submit()
+        if  form1.validate_on_submit():
+            leave = leaveform.usr,leaveform.mgr,leaveform.todate,leaveform.startdate,leaveform.reason
+            print leave
+            me =Post()
+            me.username = leave[0]
+            me.manager = leave[1]
+            me.todate = leave[2]
+            me.fromdate = leave[3]
+            me.Reason = leave[4]
+            db.session.add(me)
+            db.session.commit()
+        
 
-        return render_template('leaveform.html')
+
+            return redirect('/leaverequest')
+        return render_template(url_for(home))
 
 
 @leaveapp.route("/leavestatus")
 def leavestatus():
-        posts = Post.query.filter_by(
-            user_id=session['username'].id).all()
-        return render_template("leavestatus.html",title='leavestatus',posts=posts)
+        
+        if session['username']:
+            posts = Post.query.filter_by(user_id=session['username'].id).all()
+            
+        else:posts=None
+        return render_template("leavestatus.html",title='leavestatus',posts=posts,leaveclass="danger")
 
 @leaveapp.route("/changepassword")
 def ChangePassword():
@@ -125,7 +178,5 @@ def ChangePassword():
 def Logout():
     session.clear()
     return render_template("main.html",title='main')
-
-
 
 

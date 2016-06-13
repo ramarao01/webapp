@@ -36,8 +36,11 @@ class Post(db.Model):
     Applydate = db.Column(db.String(140))
     username = db.Column(db.String(140))
     noofdays = db.Column(db.String(140))
+    manager = db.Column(db.String(140))
+
     #timestamp = db.Column(db.DateTime)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    leavestatus = db.Column(db.String(140))
 
     def __repr__(self):
         return '<Post %r>' % (self.id)

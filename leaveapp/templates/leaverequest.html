@@ -1,5 +1,81 @@
 {% extends "base.html" %}
-{% block content %}
-<h1>Welcome to leaverequest page<h1>
-{% endblock %}
 
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('.static', filename='bootstrap.min.css')}}">
+  <script src="{{ url_for('.static',filename= 'js/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('.static', filename='js/jquery.min.js') }}"></script> 
+   <link rel="stylesheet" href="{{ url_for('.static', filename='css/datepicker.css') }}">
+    <link rel="stylesheet" href="{{ url_for('.static',filename='css/bootstrap.css' )}}">
+
+
+
+<h1>Welcome to leaverequest page</h1>
+
+
+
+<div class="container">
+  <h2>Leave Application Form</h2>
+  <p>Apply for leave</p>
+  <form role="form" action="/leaverequest" method='post'>
+  
+  {{ form.hidden_tag() }}
+
+    <div class="form-group">
+      <label for="usr">Employee Name</label>
+      <input type="text" class="form-control" id="usr" name="usr">
+    </div>
+    <div class="form-group">
+      <label for="mgr">Manager</label>
+      <input type="text" class="form-control" id="mgr" name="mgr">
+    </div>
+
+
+   <div class="form-group has-feedback">
+      <label for="fromdate">Fromdate</label>
+      <input type="text" class="form-control" id="fromdate" placeholder="Enter from date" name="fromdate">
+          <i class="glyphicon glyphicon-calendar form-control-feedback"></i>
+  
+ </div>
+  <div class="form-group has-feedback">
+      <label for="todate">Todate</label>
+      <input type="text" class="form-control" id="todate" placeholder="Enter To date" name="todate">
+<i class="glyphicon glyphicon-calendar form-control-feedback"></i>
+         
+</div>
+<div class="form-group">
+      <label for="reason">Reason:</label>
+      <textarea class="form-control" rows="5" id="reason" name=""></textarea>
+    </div>
+
+
+
+ </div>
+ <div class="form-group">
+<div class="container">
+<button class="btn btn-success">ADD</button>
+</div>
+</div>
+
+
+ <script src="{{ url_for('.static', filename='js/jquery-1.9.1.min.js') }}"
+></script>
+  <script src="{{ url_for('.static', filename='js/bootstrap-datepicker.js') }}"
+src="js/bootstrap-datepicker.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function () 
+    {
+    	$('#leavefromdate').datepicker({format: "dd/mm/yyyy"});
+     });
+    $(document).ready(function () 
+    {
+    	$('#leavetodate').datepicker({format: "dd/mm/yyyy"});
+     });
+  </script>
+ 
+    
+  </form>
+</div>
+
+
+{% endblock %}

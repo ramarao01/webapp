@@ -3,19 +3,17 @@
 
 {% block content %}
 <h1>Welcome to leavestatus page<h1>
+{{ post }}
+{% if posts != None %}
 
-{% if post == None %}
-<p>
-wrong entry
-</p>
-
-{% else %}
+<div class="container">
 <table class="table">
 <thead>
 <tr>
     <th>Application no.</th>
     <th>Apply Date</th>
     <th>Username</th>
+    <th>Manager</th>
     <th>Leavetype</th>
     <th>From</th>
     <th>To</th>
@@ -25,19 +23,31 @@ wrong entry
 <th>Total leaves taken</th>
 <th>Leave Status</th>
 {% for post in posts %}
+
 </tr>
 </thead>
 <tbody>
-<tr class="info">
+{% if post.leavestatus == 
+"Approved" %}
+
+<tr class="success">
+
+{% else %}
+
+<tr class="danger">
+{% endif %}
     <td>{{ post.id }}</td>
     <td>{{ post.Applydate }}</td>
-    <td>{{ post.username }}</td>
+	<td>{{ post.username }}</td>
+    <td>{{ post.manager }}</td>
     <td>{{ post.leavetype }}</td>
     <td>{{ post.todate }}</td>
     <td>{{ post.fromdate }}</td>
     <td>{{ post.noofdays }}</td>
     <td>{{ post.Reason }}</td>
     <td>{{ post.Availableleaves }}</td>
+    <td></td>
+    <td>{{ post.leavestatus }}</td>
 </tr>
 </tbody>
 {% endfor %}
@@ -72,19 +82,17 @@ wrong entry
 
 
 </table>
-{ % endif % }
-
-</div>
-<div class="menu_simple">
-<ul>
-<li><a href="#">Home</a></li>
-<li><a href="#">Profile</a></li>
-<li><a href="#">Leaves</a></li>
-<li><a href="#">Asserts</a></li>
-<li><a href="#">Employee</a></li>
-</ul>
 </div>
 
-<link rel="stylesheet" href="{{ url_for('.static', filename='css/theme.css') }}">s
+
+{% else %}
+<p>
+wrong entry
+</p>
+
+{% endif %}
+
+
+<link rel="stylesheet" href="{{ url_for('.static', filename='css/theme.css') }}">
 </body>
 {% endblock %}

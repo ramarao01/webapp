@@ -55,10 +55,27 @@ class LoginForm(Form):
 
 class empreg(Form):
     empfirstname = StringField('empfirstname', validators=[DataRequired('Please enter firstname')])
-    empmiddlename = StringField('empmiddlename', validators=[DataRequired('Please enter firstname')])
+    empmiddlename = StringField('empmiddlename', validators=[DataRequired('Please enter middlename')])
     emplastname = StringField('emplastname', validators=[DataRequired()])
     empemail = StringField('empemail', validators=[DataRequired()])
     emppwd = StringField('emppwd', validators=[DataRequired()])
     empdateofjoining = StringField('empdateofjoining', validators=[DataRequired()])
 
 	
+
+
+
+
+
+class leaveform(Form):
+    """docstring for leaveform"""
+    
+    usr = StringField('usr', validators=[DataRequired('Please enter username')])
+    mgr = StringField('mgr', validators=[DataRequired('Please enter managername')])
+    todate = StringField('today', validators=[DataRequired('Please enter username')])
+    fromdate = StringField('usr', validators=[DataRequired('Please enter username')])
+    reason = StringField('reason', validators=[DataRequired('Please enter username')])
+
+
+
+        

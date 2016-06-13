@@ -1,5 +1,3 @@
-
-
 {% extends "base.html" %}
 {% block content %}
  <link rel="stylesheet" href="{{ url_for('.static', filename='bootstrap.min.css')}}">
@@ -11,13 +9,6 @@
 
 
 
-<script>
-  $(function() {
-    var i= [user.firstname];
-    
-    $("#empmiddlename").autocomplete({source:i});
-  });
-</script>
 
 <div class="container">
   <h2>ADD EMPLOYEE </h2>
@@ -25,7 +16,7 @@
 
 
 
-  <form role="form" action="" method='post'>
+  <form role="form" action="/empreg" method='post'>
  
   {{ form.hidden_tag() }}
 
@@ -53,7 +44,7 @@
 <div class="form-group has-feedback">
       <label for="empdateofjoining">DATE OF JOINING:</label>
       <input type="text" class="form-control" id="empdateofjoining" placeholder="click to enter date of joining">
-          <i class="glyphicon glyphicon-user form-control-feedback"></i></div>
+          <i class="glyphicon glyphicon-calendar form-control-feedback"></i></div>
 
 
       <button class="btn btn-success">ADD</button>

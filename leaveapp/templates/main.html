@@ -20,11 +20,13 @@
 
 
 
-  <body>
+ <link rel="stylesheet" href="{{ url_for('.static', filename='bootstrap.min.css')}}">
+  <script> src="{{ url_for('.static',filename='bootstrap.min.js') }}>" </script>
+  <script> src="{{ url_for('.static', filename='jquery.min.js') }}>" </script> 
 
     <div class="login">
     <table>
-    </tr>
+    <tr>
     <td><a tabindex="30" href="/login">LOGIN</a></td>
     <td>
     <p><a href = "/regleave">New user Registration</a></p></td>
@@ -32,8 +34,7 @@
     </table>
     <p>The local date and time is </p>
 	  </div>
-    
-  </body>
-</html>
+
+
 <!--  </body>
 </html>-->

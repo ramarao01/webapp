@@ -14,8 +14,8 @@
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
 
   <link rel="stylesheet" href="{{ url_for('.static', filename='bootstrap.min.css')}}">
-  <script src="{{ url_for('.static',filename='bootstrap.min.js') }}>" </script>
-  <script src="{{ url_for('.static', filename='jquery.min.js') }}>" </script> 
+  <script> src="{{ url_for('.static',filename='bootstrap.min.js') }}>" </script>
+  <script> src="{{ url_for('.static', filename='jquery.min.js') }}>" </script> 
   <body>
     {% with messages = get_flashed_messages() %}
       {% if messages %}
@@ -26,12 +26,20 @@
         </ul>
         {% endif %}
     {% endwith %} 
+    <div class="jumbotron">
+    <div class="page-header">
+      <h1>Project 360</h1>  
+  </div>
+      
+  <p>Leave management App</p>
+
+</div>
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="/home">Home</a></li>
+          <li class="active" role="presentation"><a href="/home">Home</a></li>
           <li><a href="/profile">Profile</a></li>
-          <li><a href="/leaveform">LeaveForm</a></li> 
+          <li><a href="/leaverequest">LeaveRequest</a></li> 
           <li><a href="/leavestatus">LeaveStatus</a></li>
           <li><a href="/changepassword">ChangePassword</a></li>
         </ul>
