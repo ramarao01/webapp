@@ -13,9 +13,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
 
-  <link rel="stylesheet" href="{{ url_for('.static', filename='bootstrap.min.css')}}">
-  <script> src="{{ url_for('.static',filename='bootstrap.min.js') }}>" </script>
-  <script> src="{{ url_for('.static', filename='jquery.min.js') }}>" </script> 
+  <link rel="stylesheet" href="{{ url_for('.static', filename='bootstrap/css/bootstrap.min.css')}}">
+  <script src="{{ url_for('.static',filename='bootstrap/js/bootstrap.min.js') }}"> </script>
+  <script src="{{ url_for('.static', filename='bootstrap/js/jquery.min.js') }}"> </script> 
   <body>
     {% with messages = get_flashed_messages() %}
       {% if messages %}
@@ -26,7 +26,7 @@
         </ul>
         {% endif %}
     {% endwith %} 
-    <div class="jumbotron">
+    <div class="content">
     <div class="page-header">
       <h1>Project 360</h1>  
   </div>

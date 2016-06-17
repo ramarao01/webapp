@@ -1,4 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('.static', filename='bootstrap/css/bootstrap.min.css')}}">
+  <script src="{{ url_for('.static',filename= 'bootstrap/js/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('.static', filename='bootstrap/js/jquery.min.js') }}"></script> 
+  <link rel="stylesheet" href="{{ url_for('.static',filename='css/open.css') }}">
+
+
+
 <div class="dropdown">
+<a id="dLabel" role="button" data-toggle="dropdown">
+    <i class="glyphicon glyphicon-bell"></i>
+  </a>
+
   <ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel">
     
     <div class="notification-heading"><h4 class="menu-title">Notifications</h4><h4 class="menu-title pull-right">View all<i class="glyphicon glyphicon-circle-arrow-right"></i></h4>
@@ -41,3 +56,6 @@
   
   
 </div>
+
+
+{% endblock %}

@@ -1,9 +1,9 @@
 $(function() {
     $('button').click(function() {
-        var user = $('#empfirstname').val();
-        var pass = $('#emplastname').val();
+        var user = $('#username').val();
+        var pass = $('#password').val();
         $.ajax({
-            url: '/signupuser',
+            url: '/signUpUser',
             data: $('form').serialize(),
             type: 'POST',
             success: function(response) {

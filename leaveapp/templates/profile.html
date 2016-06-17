@@ -1,18 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Welcome to profile page<h1>
+<h1>Welcome to profile page</h1>
 {% if user != None %}
-<div class="containr">
+<div class="container">
 
-<form action = "" method="post" name="register">
-<table>
 
-<tr>
-    <td align="center" colspan="2"><input type="submit" value="Register" name="search"></td>
-  </tr>
-</table>
-</form>
-<div class="table-responsive">
 <table class="table">
 	   <tr> 
    	  <td>First Name:</td>
@@ -63,7 +55,6 @@
 
 </table>
 </div>
-</div>
 {% else %}
 <p> Wrong entry</p>
 
@@ -71,4 +62,3 @@
 
 
 {% endblock %}
-~               

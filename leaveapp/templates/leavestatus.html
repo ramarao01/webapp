@@ -2,12 +2,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Welcome to leavestatus page<h1>
+<h1>Welcome to leavestatus page</h1>
 {{ post }}
 {% if posts != None %}
 
 <div class="container">
+<div class="table-responsive">
 <table class="table">
+
 <thead>
 <tr>
     <th>Application no.</th>
@@ -32,6 +34,9 @@
 
 <tr class="success">
 
+{% elif post.leavestatus == 
+"Pending" %}
+<tr class="info">
 {% else %}
 
 <tr class="danger">
@@ -52,39 +57,14 @@
 </tbody>
 {% endfor %}
 
-<tr class="danger">
-    <td>1</td>
-    <td>27/05/2016</td>
-    <td>Ramarao</td>
-    <td>Casual Leave</td>
-    <td>28/05/2015</td>
-    <td>30/05/2015</td>
-    <td>5</td>
-    <td>Going home</td>
-    <td>13</td>
-</tr>
 
-
-
-
-<tr class="success">
-    <td>1</td>
-    <td>27/05/2016</td>
-    <td>Ramarao</td>
-    <td>Casual Leave</td>
-    <td>28/05/2015</td>
-    <td>30/05/2015</td>
-    <td>5</td>
-    <td>Going home</td>
-    <td>13</td>
-</tr>
 
 
 
 </table>
 </div>
 
-
+</div>
 {% else %}
 <p>
 wrong entry

@@ -34,10 +34,29 @@ def test():
    return "Sent"
 
  
+@leaveapp.route('/signUp')
+def signUp():
+    return render_template('signUp.html')
+
+
+@leaveapp.route('/signUpUser', methods=['POST'])
+def signUpUser():
+    user =  request.form['username'];
+    print user
+    password = request.form['password'];
+
+    return jsonify(status='OK',user=user,password=password)
+
 
  
 
- 
+@leaveapp.route("/notification",methods=['GET','POST'])
+def notification():
+    return render_template('notification.html')
+
+@leaveapp.route("/hai",methods=['GET','POST'])
+def hai():
+    return render_template('hai.html')
 
 
 
@@ -98,7 +117,7 @@ def login():
     if form1.validate():
         session['logged_in']=True
         session['username'] = form1.validate()
-        
+        print session['username']
         return redirect('/profile')
     return render_template('login.html',form1=form1)
     
