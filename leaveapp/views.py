@@ -50,14 +50,16 @@ def signUpUser():
 
  
 
-@leaveapp.route("/notification",methods=['GET','POST'])
-def notification():
-    return render_template('notification.html')
 
 @leaveapp.route("/hai",methods=['GET','POST'])
 def hai():
     return render_template('hai.html')
 
+
+@leaveapp.route("/mgrleaverequests",methods=['GET','POST'])
+def mgrleaverequests():
+    reqdata = [request.form['usr'],request.form['mgr'],request.form['fromdate'],request.form['todate'],request.form['reason']]
+    return render_template('mgrleaverequests.html',reqdata=reqdata)
 
 
 
@@ -72,6 +74,16 @@ def home():
     return render_template('home.html',title='Home')
 
 
+@leaveapp.route("/tree",methods=['GET','POST'])
+
+def tree():
+    return render_template('thumnail.html')
+
+@leaveapp.route("/slide",methods=['GET','POST'])
+
+def slide():
+    return render_template('slide.html')
+
 
 
 @leaveapp.route("/empreg",methods=['GET','POST'])
@@ -83,9 +95,6 @@ def fempreg():
     if request.method == 'GET':
         return render_template('empreg.html',form=orm,user=user)
     if request.method == 'POST':
-
-
-        print orm.empfirstname
         me =User()
         me.firstname = orm.empfirstname.data
         me.lastname = orm.emplastname.data
@@ -118,7 +127,7 @@ def login():
         session['logged_in']=True
         session['username'] = form1.validate()
         print session['username']
-        return redirect('/profile')
+        return redirect('/home')
     return render_template('login.html',form1=form1)
     
     

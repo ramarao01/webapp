@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Example of Bootstrap 3 Image Styling</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<style type="text/css">
+    img{
+        margin: 10px;
+    }
+	.container{
+    	margin: 20px;
+    }
+</style>
+</head> 
+<body>
+
+<div class="container"> 
+<div class="bs-example"> 
+
+
+	<img src="{{ url_for('.static', filename='images/11.jpg') }}" class="img-rounded" alt="Circular Image">
+	<img src="{{ url_for('.static', filename='images/s1.jpg') }}" class="img-circle" alt="Circular Image">
+	<img src="{{ url_for('.static', filename='images/s2.jpg') }}" class="img-circle" alt="Circular Image">
+
+	<img src="{{ url_for('.static', filename='images/11.jpg') }}" class="img-circle" alt="Circular Image">
+	<img src="{{ url_for('.static', filename='images/11.jpg') }}" class="img-circle" alt="Circular Image">
+	<img src="{{ url_for('.static', filename='images/11.jpg') }}" class="img-circle" alt="Circular Image">
+
+    <img src="images/125.jpg" class="img-rounded" alt="Rounded Image">
+    
+    <img src="images/125x125.jpg" class="img-thumbnail" alt="Thumbnail Image">
+</div>
+</div>
+</body>
+</html>                                		

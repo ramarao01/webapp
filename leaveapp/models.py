@@ -46,6 +46,15 @@ class Post(db.Model):
         return '<Post %r>' % (self.id)
 
 
+class Calendar(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    Day = db.Column(db.String(120))
+    Months = db.Column(db.String(120))
+    Week = db.Column(db.String(120))
+    Holiday = db.Column(db.String(120))
+    
+
+
 @property
 def is_authenticated(self):
         return True

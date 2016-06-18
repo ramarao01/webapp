@@ -1,7 +1,8 @@
-
 {% extends "base.html" %}
 
 {% block content %}
+
+
 <h1>Welcome to leavestatus page</h1>
 {{ post }}
 {% if posts != None %}
@@ -75,4 +76,5 @@ wrong entry
 
 <link rel="stylesheet" href="{{ url_for('.static', filename='css/theme.css') }}">
 </body>
+</html>
 {% endblock %}
