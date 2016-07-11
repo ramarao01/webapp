@@ -1,59 +1,55 @@
 import os
 import re
-from flask_mail import Mail, Message
 from flask import flash,session,request,render_template,redirect,url_for,g,jsonify
 from leaveapp import leaveapp,db,lm,oid
 from .forms import RegistrationForm,LoginForm,empreg,leaveform
 from functools import wraps
-from .models import User,Post
+from .models import User,Post,Calendar,Birthday
 leaveapp.secret_key = os.urandom(24)
 import sqlite3
 from sqlalchemy import and_,insert
 from datetime import datetime
 
-from flask_mail import Message
 
 
-leaveapp.config['MAIL_SERVER'] = 'smtp.gmail.com'
-leaveapp.config['MAIL_PORT'] = 465
 
-leaveapp.config['MAIL_USE_SSL'] = True,
 
-leaveapp.config['MAIL_USERNAME'] = 'kedarasettiramarao01@gmail.com'
-leaveapp.config['MAIL_PASSWORD'] = '9553491072'
-leaveapp.config['ADMINS'] = ['kedarasttiramarao01@gmail.com']
+@leaveapp.route('/index')
+def index():
+    return render_template('index.html')
 
-mail = Mail(leaveapp)
+@leaveapp.route('/filter')
+def filter():
+    user = User.query.filter_by(
+            firstname='Ramarao').all()
+    return render_template('filter.html',users=user)
 
-@leaveapp.route("/")
-def test():
-
-   msg = Message('Hello', sender = 'kedarasettiramarao@gmail.com', recipients = ['kedarasttiramarao01@gmail.com'])
-   msg.body = "Hello Flask message sent from Flask-Mail"
-   mail.send(msg)
-   return "Sent"
 
  
-@leaveapp.route('/signUp')
-def signUp():
-    return render_template('signUp.html')
-
-
-@leaveapp.route('/signUpUser', methods=['POST'])
-def signUpUser():
-    user =  request.form['username'];
+@leaveapp.route('/echo/', methods=['GET'])
+def echo():
+    print request.args.get('echoValue')
+    user = User.query.filter_by(
+            firstname=request.args.get('echoValue')).all()
     print user
-    password = request.form['password'];
+    ret_data = {"value":[user[0].lastname,user[0].firstname],"value1":'Ramarao'}
+    return jsonify(ret_data)
 
-    return jsonify(status='OK',user=user,password=password)
+
+
+
+
+@leaveapp.route('/empprofile')
+def signup():
+    return render_template('empprofile.html')
+
+
+
 
 
  
 
 
-@leaveapp.route("/hai",methods=['GET','POST'])
-def hai():
-    return render_template('hai.html')
 
 
 @leaveapp.route("/mgrleaverequests",methods=['GET','POST'])
@@ -71,7 +67,17 @@ session={'username':None}
 @leaveapp.route("/home",methods=['GET','POST'])
 
 def home():
-    return render_template('home.html',title='Home')
+    print datetime.now()
+    leave=Post.query.filter_by(user_id=session['username'].id).first()
+    print leave
+    print leave.Availableleaves
+
+    birthdays = Birthday.query.all()
+
+
+
+    days = Calendar.query.all()
+    return render_template('home.html',title='Home',days=days,Birthdays = birthdays,leave=leave)
 
 
 @leaveapp.route("/tree",methods=['GET','POST'])
@@ -110,25 +116,32 @@ def fempreg():
 @leaveapp.route("/M")
 def m():
     user = User.query.filter_by(
-            firstname='Ramarao').all()
+            firstname='Saidatta').first()
     print user
+    return jsonify({'name':user.firstname})
 
-    s= jsonify({'hai':'world'})
-    print s
-    return jsonify({'hai':'world'})
-
-
+@leaveapp.route("/",methods=['GET','POST'])
 @leaveapp.route("/login",methods=['GET','POST'])
 def login():
     form1 = LoginForm()
     print form1
-    print form1.firstname
-    if form1.validate():
-        session['logged_in']=True
-        session['username'] = form1.validate()
-        print session['username']
-        return redirect('/home')
-    return render_template('login.html',form1=form1)
+    
+    if request.method == 'POST':
+    
+        if form1.validate() == False:
+            print form1.firstname.data
+            print form1.password.data
+            print form1.user
+            
+            
+            print session['username']
+            return render_template('login.html',form1=form1)
+        else:  
+            session['logged_in']=True
+            session['username'] = form1.validate()
+            return redirect('/home')
+    else:   
+        return render_template('login.html',form1=form1)
     
     
 @leaveapp.route('/main')
@@ -167,22 +180,11 @@ def profile():
 def leaverequest():
     form1 = leaveform()
     if request.method == 'GET':
-        return render_template('leaverequest.html',form=form1)
+        return render_template('leaverequest.html',form=form1,user=session['username'])
     if request.method == 'POST':
-        print form1.validate_on_submit()
-        if  form1.validate_on_submit():
-            leave = leaveform.usr,leaveform.mgr,leaveform.todate,leaveform.startdate,leaveform.reason
-            print leave
-            me =Post()
-            me.username = leave[0]
-            me.manager = leave[1]
-            me.todate = leave[2]
-            me.fromdate = leave[3]
-            me.Reason = leave[4]
-            db.session.add(me)
-            db.session.commit()
-        
-
+        print "form1.validaterequest()",form1.validaterequest()
+        if  form1.validaterequest():
+            
 
             return redirect('/leaverequest')
         return render_template(url_for(home))
@@ -208,6 +210,4 @@ def Logout():
     return render_template("main.html",title='main')
 
 
-@leaveapp.route("/lo")
-def lo():
-    return render_template("lo.html")
+

@@ -1,5 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
+<style>
+  .profile{
+  float: right;
+  margin-top:5px;
+}
+.profile span{
+  margin-top:5px;
+}
+
+</style>
+
+
 <h1>Welcome to profile page</h1>
 {% if user != None %}
 <div class="container">
@@ -51,7 +63,12 @@
 
 
 
-
+<div class="profile">
+<img src="{{ url_for('.static',filename='images/profile.jpg') }}">
+<b id = "select_file" class="span3" style="font-weight: bold; cursor: pointer; ">Please Select an Image</b>
+            <input class="span3" type="file" name="image_file" id="image_file" style="display:none " /> 
+        
+</div>
 
 </table>
 </div>
@@ -59,6 +76,16 @@
 <p> Wrong entry</p>
 
 {% endif %}
-
+<script>
+$(document).ready(function(){
+  $('#select_file').click(function() {
+       $('#image_file').click();
+      $('#image_file').change(function() {
+          var filename = $('#image_file').val();
+          $('#select_file').html(filename);
+      });
+  });
+});
+  </script>
 
 {% endblock %}

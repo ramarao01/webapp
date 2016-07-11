@@ -1,4 +1,5 @@
 from leaveapp import db
+from datetime import datetime
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -19,6 +20,7 @@ class User(db.Model):
     
     Mobilenum = db.Column(db.String(64), index=True)
     BloodGroup = db.Column(db.String(64), index=True)
+    last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
 
     posts = db.relationship('Post', backref='author', lazy='dynamic')
     def __repr__(self):
@@ -48,10 +50,16 @@ class Post(db.Model):
 
 class Calendar(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    Day = db.Column(db.String(120))
-    Months = db.Column(db.String(120))
+    Date = db.Column(db.String(120))
+    Month = db.Column(db.String(120))
     Week = db.Column(db.String(120))
     Holiday = db.Column(db.String(120))
+
+class Birthday(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    Date = db.Column(db.String(120))
+    Month = db.Column(db.String(120))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.firstname'))
     
 
 
