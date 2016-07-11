@@ -1,0 +1,73 @@
+<!-- Javascript -->
+<script src="{{ url_for('.static',filename='bootstrap/js/jquery-1.9.1.min.js') }}"></script>
+
+<script type="text/javascript">
+
+
+$(function() {
+    $('button').click(function() {
+        var user = $('#emp_firstname').val()
+        $.ajax({
+            url: '/empprofiledata',
+            data: $('form').serialize(),
+            type: 'POST',
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    });
+});
+</script>
+<body>
+<h1>Welcome to profile page</h1>
+{% if user != None %}
+<table>
+<tr><td>FirstName</td><td><input type="text" id="emp_firstname" name="emp_firstname"</p></td>
+
+</table>
+
+
+<div class="container">
+
+
+<table class="table">
+	   <tr> 
+   	  <td>First Name:</td>
+ 	    <td>{{user.firstname}}</td>
+    </tr>
+    <tr>
+	   <td>Last Name:</td>
+	   <td>{{user.lastname}} </td>{{ error }}
+    </tr>
+    <tr>
+	    <td> EmailId:</td>
+   	  <td> {{user.emailid}} </td>{{ error }}
+    </tr>
+    <tr>
+	   <td>Gender:</td>{{ error }}
+   	 <td>{{user.Gender}}</td>
+    </tr>
+    <tr>
+	   <td>EmployeeId:</td> <td>{{user.empid}}</td>{{ error }}
+    </tr>
+    <tr>
+	   <td>MobileNo:</td><td>{{user.Mobilenum}}</td>{{ error }}
+   </tr>              
+   <tr>
+   <td>Date of Birth:</td> <td>{{user.DateOfBirth}}</td>
+   </tr>
+   <tr>
+   <td>BloodGroup:</td>
+   <td>{{ user.BloodGroup }}</td>
+   </tr>
+</table>
+</div>
+{% else %}
+<p> Wrong entry</p>
+
+{% endif %}
+
+</body>
