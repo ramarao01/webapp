@@ -3,7 +3,16 @@ from wtforms import StringField, BooleanField, RadioField,validators
 
 from wtforms.fields.core import StringField
 from leaveapp.models import User,Post
-from leaveapp import leaveapp,db,lm,oid
+from leaveapp import leaveapp,db
+
+
+
+
+def unique_user(form, field):
+     users = User.query.filter_by(email=field.data)
+     if users and users.count() > 0:
+         raise ValidationError('The email address you provided is already in use.')
+
 
 class RegistrationForm(Form):
     firstname = StringField('firstname', [validators.DataRequired('Please enter firstname')])
@@ -30,12 +39,11 @@ class LoginForm(Form):
         if not rv:
             return False
 
-        user = User.query.filter_by(
-            firstname=self.firstname.data).first()
+        user = self.get_user()
         print "user from database"
        # print user.firstname,user.password
   
-        if user.firstname.lower() is None:
+        if user.firstname is None:
             self.firstname.errors.append('Please enter valid Username')
             return False
         if self.password.data != user.password :
@@ -43,6 +51,8 @@ class LoginForm(Form):
             return False
         self.user = user
         return user
+    def get_user(self):
+        return db.session.query(User).filter_by(firstname=self.firstname.data).first()
 
 
 
@@ -60,8 +70,8 @@ class LoginForm(Form):
 #        posts = User.query.filter_by(
 #            firstname=posts.id).first()
 #        return posts
-
-
+class search(Form):
+    search = StringField('search', [validators.DataRequired()])
 
 
 
@@ -82,53 +92,40 @@ class empreg(Form):
 class leaveform(Form):
     """docstring for leaveform"""
     
-    usr = StringField('usr', [validators.DataRequired('Please enter username')])
-    mgr = StringField('mgr', [validators.DataRequired('Please enter managername')])
-    todate = StringField('today', [validators.DataRequired('Please enter username')])
-    fromdate = StringField('usr', [validators.DataRequired('Please enter username')])
-    reason = StringField('reason', [validators.DataRequired('Please enter username')])
+    usr = StringField('usr')
+    mgr = StringField('mgr', [validators.DataRequired('Please enter Manager')])
+    todate = StringField('today', [validators.DataRequired('Please enter Todate')])
+    fromdate = StringField('fromdate', [validators.DataRequired('Please enter Fromdate')])
+    reason = StringField('reason', [validators.DataRequired('Please enter Reason')])
 
     def __init__(self, *args, **kwargs):
         Form.__init__(self, *args, **kwargs)
         self.user = None
 
     def validaterequest(self):
-        rv = Form.validate(self)
-        if not rv:
-            return False
 
 
-        leavefields = [self.usr.data,self.mgr.data,self.todate.data,self.startdate.data,self.reason.data]
+
+        leavefields = [self.usr.data,self.mgr.data,self.todate.data,self.fromdate.data,self.reason.data]
         for leavefield in leavefields:
             if leavefield is None:
+                print "Entered1"
                 return False
 
             
         
 
 
-        user = User.query.filter_by(
-            firstname=self.usr.data).first()
-        print "user from database"
-       # print user.firstname,user.password
-  
-        if user.firstname is None:
-            self.usr.errors.append('Please enter valid Username')
-            return False
 
         print self.todate.data
 
        
 
-        me =Post()
-        me.username = leavefileds[0]
-        me.manager = leavefileds[1]
-        me.todate = leavefileds[2]
-        me.fromdate = leavefileds[3]
-        me.Reason = leavefileds[4]
-        db.session.add(me)
-        db.session.commit()
-        self.user = user
-        return user
+        
+
+
+        
+
+        return leavefields
 
         

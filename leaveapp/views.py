@@ -2,7 +2,7 @@ import os
 import re
 from flask import flash,session,request,render_template,redirect,url_for,g,jsonify
 from leaveapp import leaveapp,db,lm,oid
-from .forms import RegistrationForm,LoginForm,empreg,leaveform
+from .forms import RegistrationForm,LoginForm,empreg,leaveform,search
 from functools import wraps
 from .models import User,Post,Calendar,Birthday
 leaveapp.secret_key = os.urandom(24)
@@ -184,20 +184,45 @@ def leaverequest():
     if request.method == 'POST':
         print "form1.validaterequest()",form1.validaterequest()
         if  form1.validaterequest():
+            leavefileds = form1.validaterequest()
+            me =Post()
+            me.username = leavefileds[0]
+            me.manager = leavefileds[1]
+            me.todate = leavefileds[2]
+            me.fromdate = leavefileds[3]
+            me.Reason = leavefileds[4]
+            
+            db.session.add(me)
+            db.session.commit()
             
 
-            return redirect('/leaverequest')
-        return render_template(url_for(home))
+            return render_template('leaverequest.html',form=form1,user=session['username'])
+        return redirect('/home')
 
 
-@leaveapp.route("/leavestatus")
+@leaveapp.route("/leavestatus",methods=['GET','POST'])
 def leavestatus():
-        
+    form = search()
+    if request.method == 'GET': 
         if session['username']:
             posts = Post.query.filter_by(user_id=session['username'].id).all()
+            print posts         
+        else:
+            posts=None
+            print posts
+    else:
+    
+        try:
+            posts = Post.query.filter_by(user_id=session['username'].id).order_by(form.search.data).all()
+        except:
+            posts = posts
+                
             
-        else:posts=None
-        return render_template("leavestatus.html",title='leavestatus',posts=posts,leaveclass="danger")
+        print posts
+       
+
+        
+    return render_template("leavestatus.html",title='leavestatus',posts=posts,leaveclass="danger",form=form)
 
 @leaveapp.route("/changepassword")
 def ChangePassword():

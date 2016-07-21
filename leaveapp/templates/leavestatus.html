@@ -7,6 +7,13 @@
 {{ post }}
 {% if posts != None %}
 
+<form action="" method='post'>
+
+  {{ form.hidden_tag() }}
+
+
+<input type="text" name="search">
+</form>
 <div class="container">
 <div class="table-responsive">
 <table class="table">

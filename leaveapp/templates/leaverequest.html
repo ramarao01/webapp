@@ -18,6 +18,9 @@
 
 <h1>Welcome to leaverequest page</h1>
 
+{% for message in form.fromdate.errors %}
+<div class="new"><strong>Invalid!</strong>{{ message }}</div>
+{% endfor %}
 
 
 <div class="container">
@@ -31,10 +34,30 @@
       <label for="usr">Employee Name</label>
       <input type="text" class="form-control" id="usr" name="usr" value= " {{ user.firstname }} ">
     </div>
+
     <div class="form-group">
-      <label for="mgr">Manager</label>
-      <input type="text" class="form-control" id="mgr" name="mgr" >
-    </div>
+      <label for="mgr">Select Manager</label>
+      <select class="form-control" id="mgr" name="mgr" multiple>
+        <option>Sai</option>
+        <option>Satya</option>
+        <option>Sumit</option>
+        <option>Rajesh</option>
+      </select>
+</div>
+
+<div class="form-group">
+
+
+      <label for="mgr">Leave Type</label>
+      <select class="form-control" id="leavetype" name="leavetype">
+        <option class="text">CasualLeave</option>
+        <option>SickLeave</option>
+        <option>MaternityLeave</option>
+        <option>OtherLeave</option>
+      </select>
+      </div>
+
+
 
 
    <div class="form-group has-feedback">
@@ -71,11 +94,11 @@ src="js/bootstrap-datepicker.js"></script>
   <script type="text/javascript">
     $(document).ready(function () 
     {
-    	$('#fromdate').datepicker({format: "dd/mm/yyyy"});
+    	$('#fromdate').datepicker({format: "yyyy-mm-dd"});
      });
     $(document).ready(function () 
     {
-    	$('#todate').datepicker({format: "dd/mm/yyyy"});
+    	$('#todate').datepicker({format: "yyyy-mm-dd"});
      });
   </script>
  

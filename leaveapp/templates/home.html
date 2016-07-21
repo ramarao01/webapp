@@ -2,12 +2,14 @@
 {% block content %}
 
 
-
-
 <link rel="stylesheet" href="{{ url_for('.static', filename='bootstrap/css/bootstrap.min.css')}}">
 <script src="{{ url_for('.static',filename='bootstrap/js/bootstrap.min.js') }}"> </script>
 <script src="{{ url_for('.static', filename='bootstrap/js/jquery.min.js') }}"> </script> 
 <link rel="stylesheet" href="{{ url_for('.static',filename='css/open.css') }}">
+
+
+
+
    
 <div class="container">
   <div class="col-sm-15">
@@ -127,21 +129,7 @@
 
 
 </div>
-<form>
 
-<div class="form-group">
-  <label for="txtPost">Photos</label>
-  <div class="input-group">
-    <span class="input-group-btn">
-    <span class="btn btn-primary btn-file">
-    Browse;<input type="file" id=fileupload name="file" multiple>
-    </span>
-    </span>
-    <input type="text" class="form-control" readonly>
-  </div>
-</div>
-
-</form>
 
 
 {% endblock %}

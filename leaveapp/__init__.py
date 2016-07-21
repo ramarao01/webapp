@@ -1,5 +1,5 @@
 from flask import Flask
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 
 leaveapp = Flask(__name__)
 leaveapp.config.from_object('config')
@@ -7,8 +7,8 @@ db = SQLAlchemy(leaveapp)
 leaveapp.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
 import os
-from flask.ext.login import LoginManager
-from flask.ext.openid import OpenID
+from flask_login import LoginManager
+from flask_openid import OpenID
 from config import basedir
 
 lm = LoginManager()
