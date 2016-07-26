@@ -1,7 +1,7 @@
 import os
 import re
-from flask import flash,session,request,render_template,redirect,url_for,g,jsonify
-from leaveapp import leaveapp,db,lm,oid
+from flask import flash,session,request,render_template,redirect,url_for,g,jsonify, send_from_directory
+from leaveapp import leaveapp,db
 from .forms import RegistrationForm,LoginForm,empreg,leaveform,search
 from functools import wraps
 from .models import User,Post,Calendar,Birthday
@@ -9,7 +9,51 @@ leaveapp.secret_key = os.urandom(24)
 import sqlite3
 from sqlalchemy import and_,insert
 from datetime import datetime
+from werkzeug import secure_filename
 
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+print "APP_ROOT",APP_ROOT
+# Route that will process the file upload
+@leaveapp.route('/upload', methods=['POST'])
+def upload():
+    target = os.path.join(APP_ROOT, r'images')
+    print target
+    if not os.path.isdir(target):
+        os.mkdir(target)
+    else:
+        print("Couldn't create upload directory: {}".format(target))
+    print request.files.getlist('file')
+    print dir(request.files.getlist)
+    for upload in request.files.getlist('file'):
+        print upload
+        print("{} is the file name".format(upload.filename))
+        filename=upload.filename
+        destination="\\".join([target, filename])
+        print("Accept incoming file:", filename)
+        print("Save it to:", destination)
+        upload.save(destination)
+    return render_template("profile.html",imagename=filename,title='Profile',user=session['username'])
+
+@leaveapp.route('/upload/<filename>')
+def send_image(filename):
+    return send_from_directory('images',filename)
+    
+
+# This is the path to the upload directory
+leaveapp.config['UPLOAD_FOLDER'] = 'uploads/'
+# These are the extension that we are accepting to be uploaded
+leaveapp.config['ALLOWED_EXTENSIONS'] = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
+# For a given file, return whether it's an allowed type or not
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in leaveapp.config['ALLOWED_EXTENSIONS']
+
+
+@leaveapp.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(leaveapp.config['UPLOAD_FOLDER'],
+                               filename)
 
 
 

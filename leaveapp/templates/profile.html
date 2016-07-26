@@ -1,5 +1,14 @@
 {% extends "base.html" %}
-{% block content %}
+{% block head %}
+
+ 
+<style>
+        img {
+    border: 0;
+    height: 168px;
+    width: 168px;  
+}
+</style>
 <style>
   .profile{
   float: right;
@@ -10,8 +19,8 @@
 }
 
 </style>
-
-
+{% endblock %}
+{% block body %}
 <h1>Welcome to profile page</h1>
 {% if user != None %}
 <div class="container">
@@ -61,14 +70,20 @@
     
    </tr>
 
-
+<!--
 
 <div class="profile">
 <img src="{{ url_for('.static',filename='images/profile2.jpg') }}" class="img-circle" width="100" height="100">
 <span id = "select_file" class="span3" style="font-weight: bold; cursor: pointer; ">Please Select an Image</span>
-            <input class="span3" type="file" name="image_file" id="image_file" style="display:none " /> 
+<input class="span3" type="file" name="image_file" id="image_file" style="display:none " /> 
         
 </div>
+-->
+
+
+
+
+
 
 </table>
 </div>
@@ -76,6 +91,7 @@
 <p> Wrong entry</p>
 
 {% endif %}
+<!--
 <script>
 $(document).ready(function(){
   $('#select_file').click(function() {
@@ -86,6 +102,53 @@ $(document).ready(function(){
       });
   });
 });
-  </script>
+</script>
+-->
+<form action="upload" method="post" enctype="multipart/form-data">
+
+
+  
+
+<img class="img-circle" src="{{url_for('send_image',filename=imagename )}}">
+<br>
+<span id = "select_file" class="span3" style="font-weight: bold; cursor: pointer; ">Change Profile</span>
+            <input class="span3" type="file" name="file" id="file" value=""/> 
+                    <input type="submit" value="Upload">
+                    <h2>{{ imagename }}</h2>
+                
+        
+
+</form>
+
+
+
+
+<script>
+
+$(document).ready(function(){
+  $('#select_file').click(function() {
+
+
+       $('#file').click();
+      $('#file').change(function() {
+    var input = this;
+          var filename = $('#file').val();
+    if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function (e) {
+                $('.pic').attr('src', e.target.result);
+
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+      });
+  });
+});
+
+</script>
+
+
 
 {% endblock %}

@@ -3,23 +3,26 @@ from datetime import datetime
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    password = db.Column(db.String(120), index=True, unique=True)
-    DateOfBirth = db.Column(db.String(120), index=True)
-    MaritalStatus = db.Column(db.String(64), index=True)
-    Gender = db.Column(db.String(64), index=True)
+    firstname = db.Column(db.Integer, index=True)
     lastname = db.Column(db.String(64), index=True)
     middlename = db.Column(db.String(64), index=True)
-    firstname = db.Column(db.Integer, index=True)
-    City = db.Column(db.String(64), index=True, unique=True)
-    Skypeid = db.Column(db.String(64), index=True, unique=True)
-    Reportingto = db.Column(db.String(64), index=True)
-    empid = db.Column(db.Integer, index=True, unique=True)
-    displayname = db.Column(db.String(64), index=True, unique=True)
+    username = db.Column(db.String(64), index=True, unique=True)
     emailid = db.Column(db.String(64), index=True, unique=True)
-    DateOfjoining = db.Column(db.String(64), index=True)
+    password = db.Column(db.String(120), index=True, unique=True)
+
+    dateofbirth = db.Column(db.String(120), index=True)
+    maritalstatus = db.Column(db.String(64), index=True)
+    gender = db.Column(db.String(64), index=True)
+    mobilenum = db.Column(db.String(64), index=True)
+    bloodgroup = db.Column(db.String(64), index=True)
+    age = db.Column(db.String(64), index=True)
     
-    Mobilenum = db.Column(db.String(64), index=True)
-    BloodGroup = db.Column(db.String(64), index=True)
+    city = db.Column(db.String(64), index=True, unique=True)
+    skypeid = db.Column(db.String(64), index=True, unique=True)
+    reportingto = db.Column(db.String(64), index=True)
+
+    empid = db.Column(db.Integer, index=True, unique=True)
+    dateofjoining = db.Column(db.String(64), index=True)
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
 
     posts = db.relationship('Post', backref='author', lazy='dynamic')
@@ -79,4 +82,4 @@ def get_id(self):
     try:
     	return unicode(self.id)  # python 2
     except NameError:
-        	return str(self.id)  # python 3
+        return str(self.id)  # python 3
