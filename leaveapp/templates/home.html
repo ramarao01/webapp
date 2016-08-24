@@ -28,10 +28,10 @@
           <div class="panel panel-body">
             <p class="text-primary"><span class="label label-danger pull-right">14</span> Total Leaves </p>
             <p class="text-success"><span class="label label-success pull-right">{{ leave.usedleaves }}</span>Leaves Taken</p>
-            <p class="text-danger"><span class="label label-primary pull-right">{{ leave.Availableleaves }}</span> Leaves Remaining</p>
+            <p class="text-danger"><span class="label label-primary pull-right">{{ leave.availableleaves }}</span> Leaves Remaining</p>
           <div class="progress">
             <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:60%">{{ leave.usedleaves }} Taken</div>
-            <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">{{ leave.Availableleaves }} Remaining</div>
+            <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">{{ leave.availableleaves }} Remaining</div>
           </div>
           </div>
         </div>
@@ -42,7 +42,7 @@
       <div class="panel panel-heading"><p class="panel-title"><a data-toggle="collapse" href="#collapse1">Upcoming Birthdays</a></p></div>
       <div id="collapse1" class="panel-collapse collapse">
         {% for Birthday in Birthdays %}
-          <div class="panel panel-body"><p>{{ Birthday.user_id }} {{ Birthday.user_id }} </p><small class="text-info"> {{ Birthday.Month }} {{ Birthday.Date }}</small></div>
+          <div class="panel panel-body"><p>{{ Birthday.user_id }} {{ Birthday.user_id }} </p><small class="text-info"> {{ Birthday.month }} {{ Birthday.date }}</small></div>
         {% endfor %}
       </div>
     </div>
@@ -67,10 +67,10 @@
      
         {% for day in days %}
       <tr>
-      <td><h5>{{ day.Month }}</h5></td>
-      <td><h5>{{ day.Date }}</h5></td>
-      <td><h5>{{ day.Holiday }}</h5></td>
-      <td><h5>{{ day.Week }}</h5></td>
+      <td><h5>{{ day.month }}</h5></td>
+      <td><h5>{{ day.date }}</h5></td>
+      <td><h5>{{ day.holiday }}</h5></td>
+      <td><h5>{{ day.week }}</h5></td>
       </tr>
        {% endfor %}
       </tbody>
@@ -139,87 +139,5 @@
 
 
 
-<div class="container demo-2">
-      <!-- Top Navigation -->
-      <div class="codrops-top clearfix">
-        <a class="codrops-icon codrops-icon-prev" href="http://tympanus.net/Development/CreativeButtons/"><span>Previous Demo</span></a>
-        <span class="right"><a class="codrops-icon codrops-icon-drop" href="http://tympanus.net/codrops/?p=15469"><span>Back to the Codrops Article</span></a></span>
-      </div>
-      <header>
-        <h1>Caption Hover Effects</h1>  
-        <nav class="codrops-demos">
-          <a href="index.html">Effect 1</a>
-          <a class="current-demo" href="index2.html">Effect 2</a>
-          <a href="index3.html">Effect 3</a>
-          <a href="index4.html">Effect 4</a>
-          <a href="index5.html">Effect 5</a>
-          <a href="index6.html">Effect 6</a>
-          <a href="index7.html">Effect 7</a>
-        </nav>
-      </header>
-      <ul class="grid cs-style-2">
-        <li>
-          <figure>
-            <img src="{{ url_for('.static',filename='images/2.png') }}" alt="img02">
-            <figcaption>
-              <h3>Music</h3>
-              <span>Jacob Cummings</span>
-              <a href="http://dribbble.com/shots/1115960-Music">Take a look</a>
-            </figcaption>
-          </figure>
-        </li>
-        <li>
-          <figure>
-            <img src="{{ url_for('.static',filename='images/4.png') }}" alt="img04">
-            <figcaption>
-              <h3>Settings</h3>
-              <span>Jacob Cummings</span>
-              <a href="http://dribbble.com/shots/1116685-Settings">Take a look</a>
-            </figcaption>
-          </figure>
-        </li>
-        <li>
-          <figure>
-            <img src="{{ url_for('.static',filename='images/6.png') }}" alt="img06">
-            <figcaption>
-              <h3>Game Center</h3>
-              <span>Jacob Cummings</span>
-              <a href="http://dribbble.com/shots/1118904-Game-Center">Take a look</a>
-            </figcaption>
-          </figure>
-        </li>
-        <li>
-          <figure>
-            <img src="{{ url_for('.static',filename='images/5.png') }}" alt="img05">
-            <figcaption>
-              <h3>Safari</h3>
-              <span>Jacob Cummings</span>
-              <a href="http://dribbble.com/shots/1116775-Safari">Take a look</a>
-            </figcaption>
-          </figure>
-        </li>
-        <li>
-          <figure>
-            <img src="{{ url_for('.static',filename='images/3.png') }}" alt="img03">
-            <figcaption>
-              <h3>Phone</h3>
-              <span>Jacob Cummings</span>
-              <a href="http://dribbble.com/shots/1117308-Phone">Take a look</a>
-            </figcaption>
-          </figure>
-        </li>
-        <li>
-          <figure>
-            <img src="{{ url_for('.static',filename='images/1.png') }}" alt="img01">
-            <figcaption>
-              <h3>Camera</h3>
-              <span>Jacob Cummings</span>
-              <a href="http://dribbble.com/shots/1115632-Camera">Take a look</a>
-            </figcaption>
-          </figure>
-        </li>
-      </ul>
-    </div><!-- /container -->
-    <script src="url_for('.static',filename='toucheffects.js'></script>
 {% endblock %}
 

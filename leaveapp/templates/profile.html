@@ -1,12 +1,116 @@
 {% extends "base.html" %}
 {% block head %}
+<script src="{{ url_for('.static',filename='bootstrap/js/bootstrap.min.js') }}"> </script>
+<script src="{{ url_for('.static', filename='bootstrap/js/jquery.min.js') }}"> </script>
+<style>
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+}
 
+th, td {
+    border: none;
+    text-align: left;
+    padding: 8px;
+}
+</style>
+
+
+<style>
+#myImg {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#myImg:hover {opacity: 0.7;}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (image) */
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+
+/* Caption of Modal Image */
+#caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
+}
+
+/* Add Animation */
+.modal-content, #caption {
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+    from {-webkit-transform:scale(0)}
+    to {-webkit-transform:scale(1)}
+}
+
+@keyframes zoom {
+    from {transform:scale(0)}
+    to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+    .modal-content {
+        width: 100%;
+    }
+}
+</style>
  
 <style>
         img {
     border: 0;
-    height: 168px;
-    width: 168px;  
+    height: 300;
+    width: 200;  
 }
 </style>
 <style>
@@ -23,39 +127,76 @@
 {% block body %}
 <h1>Welcome to profile page</h1>
 {% if user != None %}
+
 <div class="container">
+
+<form action="profile" method="post" enctype="multipart/form-data">
+
+
+  
+{% if imagename %}
+<img id="myImg" class="img-circle" src="{{ url_for('send_image',filename=imagename) }}">
+{% else %}
+<img id="myImg" class="img-circle" src="{{ url_for('send_image',filename='profile2.jpg') }}">
+{% endif %}
+<br>
+<span id = "select_file" class="span3" style="font-weight: bold; cursor: pointer; ">Change Profile</span>
+            <input class="span3" type="file" name="file" id="file" value=""> 
+                    <input type="submit" value="Upload">
+                    <h2>{{ imagename }}</h2>
+
+
+                
+        
+
+</form>
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <span class="close">×</span>
+  <img class="modal-content" id="img01">
+  <div id="caption"></div>
+</div>
+
+
+
+
+
+
 
 
 <table class="table">
-	   <tr> 
-   	  <td>First Name:</td>
- 	    <td>{{user.firstname}}</td>
+     <tr> 
+     <div class="tooltip">Hover over me
+  <span class="tooltiptext">Tooltip text</span>
+</div>
+      <td>First Name:</td>
+      <td>{{user.firstname}}</td>
     </tr>
     <tr>
-	   <td>Last Name:</td>
-	   <td>{{user.lastname}} </td>{{ error }}
+     <td>Last Name:</td>
+     <td>{{user.lastname}} </td>{{ error }}
     </tr>
     <tr>
-	    <td> EmailId:</td>
-   	  <td> {{user.emailid}} </td>{{ error }}
+      <td> EmailId:</td>
+      <td> {{user.emailid}} </td>{{ error }}
     </tr>
     <tr>
-	   <td>Gender:</td>{{ error }}
-   	 <td>{{user.Gender}}</td>
+     <td>Gender:</td>{{ error }}
+     <td>{{user.gender}}</td>
     </tr>
     <tr>
-	   <td>EmployeeId:</td>
+     <td>EmployeeId:</td>
      <td>{{user.empid}}</td>{{ error }}
     </tr>
     <tr>
-	   <td>MobileNo:</td>
-     <td>{{user.Mobilenum}}</td>{{ error }}
+     <td>MobileNo:</td>
+     <td>{{user.mobilenum}}</td>{{ error }}
      </tr>              
    <tr>
    <td>Date of Birth:</td>
    <td>
     
-      {{user.DateOfBirth}}
+      {{user.dateofbirth}}
    
     </td>
 
@@ -64,21 +205,12 @@
    <td>BloodGroup:</td>
    <td>
     
-      {{ user.BloodGroup }}
+      {{ user.bloodgroup }}
    
     </td>
     
    </tr>
 
-<!--
-
-<div class="profile">
-<img src="{{ url_for('.static',filename='images/profile2.jpg') }}" class="img-circle" width="100" height="100">
-<span id = "select_file" class="span3" style="font-weight: bold; cursor: pointer; ">Please Select an Image</span>
-<input class="span3" type="file" name="image_file" id="image_file" style="display:none " /> 
-        
-</div>
--->
 
 
 
@@ -91,34 +223,7 @@
 <p> Wrong entry</p>
 
 {% endif %}
-<!--
-<script>
-$(document).ready(function(){
-  $('#select_file').click(function() {
-       $('#image_file').click();
-      $('#image_file').change(function() {
-          var filename = $('#image_file').val();
-          $('#select_file').html(filename);
-      });
-  });
-});
-</script>
--->
-<form action="upload" method="post" enctype="multipart/form-data">
 
-
-  
-
-<img class="img-circle" src="{{url_for('send_image',filename=imagename )}}">
-<br>
-<span id = "select_file" class="span3" style="font-weight: bold; cursor: pointer; ">Change Profile</span>
-            <input class="span3" type="file" name="file" id="file" value=""/> 
-                    <input type="submit" value="Upload">
-                    <h2>{{ imagename }}</h2>
-                
-        
-
-</form>
 
 
 
@@ -147,7 +252,37 @@ $(document).ready(function(){
   });
 });
 
+
 </script>
+
+<script>
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the image and insert it inside the modal - use its "alt" text as a caption
+var img = document.getElementById('myImg');
+var modalImg = document.getElementById("img01");
+var captionText = document.getElementById("caption");
+img.onclick = function(){
+    modal.style.display = "block";
+    modalImg.src = this.src;
+    modalImg.alt = this.alt;
+    captionText.innerHTML = this.alt;
+}
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+</script>
+
+
+
+
+
 
 
 

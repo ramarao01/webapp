@@ -13,28 +13,7 @@ from werkzeug import secure_filename
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 print "APP_ROOT",APP_ROOT
-# Route that will process the file upload
-@leaveapp.route('/upload', methods=['POST'])
-def upload():
-    target = os.path.join(APP_ROOT, r'images')
-    print target
-    if not os.path.isdir(target):
-        os.mkdir(target)
-    else:
-        print("Couldn't create upload directory: {}".format(target))
-    print request.files.getlist('file')
-    print dir(request.files.getlist)
-    for upload in request.files.getlist('file'):
-        print upload
-        print("{} is the file name".format(upload.filename))
-        filename=upload.filename
-        destination="\\".join([target, filename])
-        print("Accept incoming file:", filename)
-        print("Save it to:", destination)
-        upload.save(destination)
-    return render_template("profile.html",imagename=filename,title='Profile',user=session['username'])
-
-@leaveapp.route('/upload/<filename>')
+@leaveapp.route('/profile/<filename>')
 def send_image(filename):
     return send_from_directory('images',filename)
     
@@ -114,7 +93,7 @@ def home():
     print datetime.now()
     leave=Post.query.filter_by(user_id=session['username'].id).first()
     print leave
-    print leave.Availableleaves
+    print leave.availableleaves
 
     birthdays = Birthday.query.all()
 
@@ -167,25 +146,19 @@ def m():
 @leaveapp.route("/",methods=['GET','POST'])
 @leaveapp.route("/login",methods=['GET','POST'])
 def login():
-    form1 = LoginForm()
-    print form1
+    form = LoginForm()
+    print form
     
     if request.method == 'POST':
     
-        if form1.validate() == False:
-            print form1.firstname.data
-            print form1.password.data
-            print form1.user
-            
-            
-            print session['username']
-            return render_template('login.html',form1=form1)
+        if form.validate() == False:
+            print form.usernmae.data,form.password.data,form.user
+            return render_template('login.html',form=form)
         else:  
             session['logged_in']=True
-            session['username'] = form1.validate()
-            return redirect('/home')
-    else:   
-        return render_template('login.html',form1=form1)
+            session['username'] = form.validate()
+            return redirect('/home')   
+    return render_template('login.html',form=form)
     
     
 @leaveapp.route('/main')
@@ -212,10 +185,37 @@ def regleave():
 @leaveapp.route("/profile",methods=['GET','POST'])
 def profile():
     print session
-    if session['username']:
-        return render_template('profile.html',title='Profile',user=session['username'])
-    else:
-        return render_template('profile.html',title='Profile',user=None)
+    filename='default.jpg'
+    if request.method == 'GET':
+        return render_template('profile.html',image=filename,user=session['username'])
+
+    if request.method == 'POST':
+        target = os.path.join(APP_ROOT, r'images')
+        print target
+        if not os.path.isdir(target):
+            os.mkdir(target)
+        else:
+            print("Couldn't create upload directory: {}".format(target))
+        print request.files.getlist('file')
+        print dir(request.files.getlist)
+        for upload in request.files.getlist('file'):
+            print upload
+            print("{} is the file name".format(upload.filename))
+            filename=upload.filename
+            destination="\\".join([target, filename])
+            print("Accept incoming file:", filename)
+            print("Save it to:", destination)
+            upload.save(destination)
+            user = User.query.filter_by(firstname='Ramarao').first()
+            print user.image
+            file1 = filename.split('.')[0]
+            print file1
+            user.image = filename
+            db.session.add(user)
+            db.session.commit()
+            
+        return render_template("profile.html",imagename=filename,title='Profile',user=session['username'])
+        
 
 
 
@@ -234,7 +234,7 @@ def leaverequest():
             me.manager = leavefileds[1]
             me.todate = leavefileds[2]
             me.fromdate = leavefileds[3]
-            me.Reason = leavefileds[4]
+            me.reason = leavefileds[4]
             
             db.session.add(me)
             db.session.commit()
@@ -275,8 +275,23 @@ def ChangePassword():
 
 @leaveapp.route("/logout",methods=['GET','POST'])
 def Logout():
+    user = User.query.filter_by(firstname='Ramarao').first()
+    user.last_seen = datetime.now()
+    db.session.commit()
+
+    
     session.clear()
     return render_template("main.html",title='main')
+
+@leaveapp.route("/empdetails",methods=['GET','POST'])
+def empdetails():
+        if request.method=='GET':
+            return render_template("empdetails.html",search=None)
+        else:
+            print request.form['search'].title()
+            search=User.query.filter_by(firstname=request.form['search'].title()).first()
+            print search
+            return render_template("empdetails.html",search=search)
 
 
 

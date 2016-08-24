@@ -26,7 +26,7 @@ class RegistrationForm(Form):
     Gender = BooleanField('Gender')
     
 class LoginForm(Form):
-    firstname = StringField('Firstname', [validators.DataRequired('Please enter username'),validators.Length(min=4, max=10)])
+    username = StringField('Firstname', [validators.DataRequired('Please enter username'),validators.Length(min=4, max=10)])
     password = StringField('password', [validators.DataRequired('Please enter password'),validators.Length(min=4, max=10)])
 
 
@@ -35,24 +35,28 @@ class LoginForm(Form):
         self.user = None
 
     def validate(self):
+        for i in vars(self):
+            print "vars of Loginform",i,vars(self)[i]
         rv = Form.validate(self)
         if not rv:
             return False
-
         user = self.get_user()
-        print "user from database"
-       # print user.firstname,user.password
+        print self.username.data,self.password.data,user.username,user.password
+        print "unique user from database based on username"
+        print self.get_user()
+          
   
-        if user.firstname is None:
-            self.firstname.errors.append('Please enter valid Username')
+        if user is None:
+            self.username.errors.append('Please enter valid Username')
             return False
         if self.password.data != user.password :
             self.password.errors.append('Please enter correct Password or request HR for new password')
             return False
         self.user = user
-        return user
+        return self.user
     def get_user(self):
-        return db.session.query(User).filter_by(firstname=self.firstname.data).first()
+    
+        return db.session.query(User).filter_by(username=self.username.data).first()
 
 
 

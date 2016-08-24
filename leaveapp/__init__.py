@@ -6,15 +6,9 @@ leaveapp.config.from_object('config')
 db = SQLAlchemy(leaveapp)
 leaveapp.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
-import os
-from flask_login import LoginManager
-from flask_openid import OpenID
-from config import basedir
 
-lm = LoginManager()
-lm.login_view = 'login'
-lm.init_app(leaveapp)
-oid = OpenID(leaveapp, os.path.join(basedir, 'tmp'))
+
+
 
 from leaveapp import views,models
 
